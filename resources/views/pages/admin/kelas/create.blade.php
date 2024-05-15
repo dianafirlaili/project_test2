@@ -41,45 +41,19 @@
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tingkatan" value="X" class="selectgroup-input"
                                             checked="">
-                                        <span class="selectgroup-button">X</span>
+                                        <span class="selectgroup-button">7</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tingkatan" value="XI" class="selectgroup-input">
-                                        <span class="selectgroup-button">XI</span>
+                                        <span class="selectgroup-button">8</span>
                                     </label>
                                     <label class="selectgroup-item">
                                         <input type="radio" name="tingkatan" value="XII" class="selectgroup-input">
-                                        <span class="selectgroup-button">XII</span>
+                                        <span class="selectgroup-button">9</span>
                                     </label>
 
                                 </div>
                             </div>
-                            <div class="form-group col-md-3 col-3 mt-0 ml-5">
-                                <label class="form-label">Pilih Jurusan</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="jurusan" value="OTO" class="selectgroup-input"
-                                            checked="">
-                                        <span class="selectgroup-button">OTO</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="jurusan" value="TKJ" class="selectgroup-input">
-                                        <span class="selectgroup-button">TKJ</span>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-3 mt-0 ml-5">
-                                <label for="nama">Suffix <code>*)</code></label>
-                                <input type="text" name="suffix" id="suffix"
-                                    class="form-control @error('suffix') is-invalid @enderror"
-                                    value="{{ old('suffix') ? old('suffix') : '1' }}" required>
-                                @error('suffix')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
-                                @enderror
-                            </div>
-
-
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="guru_id">Pilih Walikelas <code></code></label>

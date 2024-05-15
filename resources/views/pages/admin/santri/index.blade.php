@@ -44,8 +44,7 @@
 
                                     <option disabled selected value=""> Pilih Kelas</option>
                                     @foreach ($kelas as $t)
-                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }} {{ $t->jurusan }}
-                                            {{ $t->suffix }} </option>
+                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -112,7 +111,7 @@
                                         {{ $data->alamat }}
                                     </td>
                                     <td>
-                                        {{ $data->kelas_id != null ? $data->kelas->tingkatan . ' ' . $data->kelas->jurusan . ' ' . $data->kelas->suffix : 'Data tidak ditemukan' }}
+                                        {{ $data->tingkatan }}
                                     </td>
                                     <td>
                                         {{ $data->users != null ? $data->users->email : 'Data tidak ditemukan' }}

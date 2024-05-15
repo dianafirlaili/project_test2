@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Guru
+    Mata Pelajaran
 @endsection
 
 @push('before-script')
@@ -29,11 +29,11 @@
                     <div class="d-flex bd-highlight mb-3 align-items-center">
 
                         <div class="p-2 bd-highlight">
-
-                            <form action="{{ route('guru.cari') }}" method="GET">
+                            <form action="{{ route('mapel.cari') }}" method="GET">
                                 <input type="text" class="babeng babeng-select  ml-0" name="cari">
                         </div>
                         <div class="p-2 bd-highlight">
+
                             <span>
                                 <input class="btn btn-info ml-1 mt-2 mt-sm-0" type="submit" id="babeng-submit"
                                     value="Cari">
@@ -41,13 +41,14 @@
                         </div>
 
                         <div class="ml-auto p-2 bd-highlight">
-                            <x-button-create link="{{ route('guru.create') }}"></x-button-create>
+                            <x-button-create link="{{ route('mapel.create') }}"></x-button-create>
+
                             </form>
 
                         </div>
                     </div>
 
-                    <x-jsmultidel link="{{ route('guru.multidel') }}" />
+                    <x-jsmultidel link="{{ route('mapel.multidel') }}" />
 
                     @if ($datas->count() > 0)
                         <x-jsdatatable />
@@ -59,10 +60,12 @@
                                 <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All
                                 </th>
                                 <th>Nama</th>
-                                <th>Alamat</th>
-                                <th>Telp</th>
-                                <th>Email</th>
-                                <th width="10%" class="text-center">Aksi</th>
+                                <th>KKM</th>
+                                <th>Tipe</th>
+                                <th>Tingkatan</th>
+                                <th>Jurusan</th>
+                                <th>Semester</th>
+                                <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,15 +80,22 @@
                                         {{ Str::limit($data->nama, 25, ' ...') }}
                                     </td>
                                     <td>
-                                        {{ $data->alamat }}
-                                    </td>
-                                    <td>
-                                        {{ $data->telp }}
-                                    </td>
-                                    <td>
-                                        {{ $data->users != null ? $data->users->email : 'Data tidak ditemukan' }}
+                                        {{ $data->kkm }}
                                     </td>
 
+                                    <td>
+                                        {{ $data->tipe }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->tingkatan }}
+                                    </td>
+                                    <td>
+                                        {{ $data->jurusan }}
+                                    </td>
+                                    <td>
+                                        {{ $data->semester }}
+                                    </td>
 
                                     <td class="text-center babeng-min-row">
                                         {{-- <x-button-reset-pass link="/admin/{{ $pages }}/{{$data->id}}/reset" /> --}}

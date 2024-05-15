@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Fungsi;
-use App\Models\mapel;
+use App\Models\kamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +23,8 @@ class adminkamarcontroller extends Controller
     public function index(Request $request)
     {
         #WAJIB
-        $pages = 'mapel';
-        $datas = mapel::paginate(Fungsi::paginationjml());
+        $pages = 'kamar';
+        $datas = kamar::paginate(Fungsi::paginationjml());
 
         return view('pages.admin.kamar.index', compact('datas', 'request', 'pages'));
     }
@@ -33,83 +33,77 @@ class adminkamarcontroller extends Controller
 
         $cari = $request->cari;
         #WAJIB
-        $pages = 'mapel';
-        $datas = DB::table('mapel')
-            ->where('nama', 'like', "%" . $cari . "%")
+        $pages = 'kamar';
+        $datas = DB::table('kamar')
+            ->where('nokamar', 'like', "%" . $cari . "%")
             ->paginate(Fungsi::paginationjml());
 
-        return view('pages.admin.mapel.index', compact('datas', 'request', 'pages'));
+        return view('pages.admin.kamar.index', compact('datas', 'request', 'pages'));
     }
     public function create()
     {
-        $pages = 'mapel';
+        $pages = 'kamar';
 
         $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
 
-        return view('pages.admin.mapel.create', compact('pages', 'tipepelajaran'));
+        return view('pages.admin.kamar.create', compact('pages', 'tipepelajaran'));
     }
 
     public function store(Request $request)
     {
-        $cek = DB::table('mapel')
-            ->where('nama', $request->nama)
+        $cek = DB::table('kamar')
+            ->where('nokamar', $request->nokamar)
             ->count();
         if ($cek > 0) {
             $request->validate(
                 [
-                    'nama' => 'required|unique:mapel,nama',
+                    'nokamar' => 'required|unique:kamar,nokamar',
                 ],
                 [
-                    'nama.unique' => 'nama sudah digunakan',
+                    'nokamar.unique' => 'nokamar sudah digunakan',
                 ]
             );
         }
 
         $request->validate(
             [
-                'nama' => 'required',
-                'kkm' => 'required|min:1|max:100',
-                'tipe' => 'required',
+                'nokamar' => 'required',
+                'kapasitas' => 'required|min:1|max:100',
+                'status' => 'required',
 
             ],
             [
-                'nama.nama' => 'Nama harus diisi',
+                'nokamar.nokamar' => 'No kamar harus diisi',
             ]
         );
 
-        DB::table('mapel')->insert(
+        DB::table('kamar')->insert(
             array(
-                'nama'     =>   $request->nama,
-                'tipe'     =>   $request->tipe,
-                'tingkatan'     =>   $request->tingkatan,
-                'jurusan'     =>   $request->jurusan,
-                'kkm'     =>   $request->kkm,
-                'semester'     =>   $request->semester,
+                'nokamar'     =>   $request->nokamar,
+                'kapasitas'     =>   $request->kapasitas,
+                'status'     =>   $request->status,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
             )
         );
-
-
-
-        return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        //return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
 
-    public function edit(mapel $id)
+    public function edit(kamar $id)
     {
-        $pages = 'mapel';
+        $pages = 'kamar';
 
         $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
-        return view('pages.admin.mapel.edit', compact('pages', 'id', 'tipepelajaran'));
+        return view('pages.admin.kamar.edit', compact('pages', 'id', 'tipepelajaran'));
     }
-    public function update(mapel $id, Request $request)
+    public function update(kamar $id, Request $request)
     {
 
-        if ($request->nama !== $id->nama) {
+        if ($request->nokamar !== $id->nokamar) {
 
             $request->validate(
                 [
-                    'nama' => "required",
+                    'nokamar' => "required",
                 ],
                 []
             );
@@ -117,46 +111,41 @@ class adminkamarcontroller extends Controller
 
         $request->validate(
             [
-                'nama' => 'required',
+                'nokamar' => 'required',
             ],
             [
-                'nama.required' => 'nama harus diisi',
+                'nokamar.required' => 'nokamar harus diisi',
             ]
         );
 
 
-        mapel::where('id', $id->id)
+        kamar::where('id', $id->id)
             ->update([
-                'nama'     =>   $request->nama,
-                'tipe'     =>   $request->tipe,
-                'tingkatan'     =>   $request->tingkatan,
-                'jurusan'     =>   $request->jurusan,
-                'kkm'     =>   $request->kkm,
-                'semester'     =>   $request->semester,
+                'nokamar'     =>   $request->nokamar,
+                'kapaitas'     =>   $request->kapasitas,
+                'status'     =>   $request->status,
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
-
-
-        return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        //return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
-    public function destroy(mapel $id)
+    public function destroy(kamar $id)
     {
 
-        mapel::destroy($id->id);
-        return redirect()->route('mapel')->with('status', 'Data berhasil dihapus!')->with('tipe', 'warning')->with('icon', 'fas fa-feather');
+        kamar::destroy($id->id);
+        return redirect()->route('kamar')->with('status', 'Data berhasil dihapus!')->with('tipe', 'warning')->with('icon', 'fas fa-feather');
     }
 
     public function multidel(Request $request)
     {
 
         $ids = $request->ids;
-        mapel::whereIn('id', $ids)->delete();
+        kamar::whereIn('id', $ids)->delete();
 
         // load ulang
         #WAJIB
-        $pages = 'mapel';
-        $datas = mapel::paginate(Fungsi::paginationjml());
+        $pages = 'kamar';
+        $datas = kamar::paginate(Fungsi::paginationjml());
 
-        return view('pages.admin.mapel.index', compact('datas', 'request', 'pages'));
+        return view('pages.admin.kamar.index', compact('datas', 'request', 'pages'));
     }
 }

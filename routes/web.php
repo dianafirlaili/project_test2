@@ -9,6 +9,7 @@ use App\Http\Controllers\admingurucontroller;
 use App\Http\Controllers\adminkelascontroller;
 use App\Http\Controllers\adminkompetensidasarcontroller;
 use App\Http\Controllers\adminkamarcontroller;
+use App\Http\Controllers\adminhafalancontroller;
 use App\Http\Controllers\adminmapelcontroller;
 use App\Http\Controllers\adminmateripokokcontroller;
 use App\Http\Controllers\adminpelanggarancontroller;
@@ -112,13 +113,24 @@ Route::group(['middleware' => ['auth:web', 'verified']], function () {
 
     //kamar
     Route::get('/admin/kamar', [adminkamarcontroller::class, 'index'])->name('kamar');
-    Route::get('/admin/mapel/{id}', [adminkamarcontroller::class, 'edit'])->name('mapel.edit');
-    Route::put('/admin/mapel/{id}', [adminkamarcontroller::class, 'update'])->name('mapel.update');
-    Route::delete('/admin/mapel/{id}', [adminkamarcontroller::class, 'destroy'])->name('mapel.destroy');
-    Route::get('/admin/datamapel/cari', [adminkamarcontroller::class, 'cari'])->name('mapel.cari');
-    Route::get('/admin/datamapel/create', [adminkamarcontroller::class, 'create'])->name('mapel.create');
-    Route::post('/admin/datamapel', [adminkamarcontroller::class, 'store'])->name('mapel.store');
-    Route::delete('/admin/datamapel/multidel', [adminkamarcontroller::class, 'multidel'])->name('mapel.multidel');
+    Route::get('/admin/kamar/{id}', [adminkamarcontroller::class, 'edit'])->name('kamar.edit');
+    Route::put('/admin/kamar/{id}', [adminkamarcontroller::class, 'update'])->name('kamar.update');
+    Route::delete('/admin/kamar/{id}', [adminkamarcontroller::class, 'destroy'])->name('kamar.destroy');
+    Route::get('/admin/datakamar/cari', [adminkamarcontroller::class, 'cari'])->name('kamar.cari');
+    Route::get('/admin/datakamar/create', [adminkamarcontroller::class, 'create'])->name('kamar.create');
+    Route::post('/admin/datakamar', [adminkamarcontroller::class, 'store'])->name('kamar.store');
+    Route::delete('/admin/datakamar/multidel', [adminkamarcontroller::class, 'multidel'])->name('kamar.multidel');
+
+
+    //hafalan
+    Route::get('/admin/hafalan', [adminhafalancontroller::class, 'index'])->name('hafalan');
+    Route::get('/admin/hafalan/{id}', [adminhafalancontroller::class, 'edit'])->name('hafalan.edit');
+    Route::put('/admin/hafalan/{id}', [adminhafalancontroller::class, 'update'])->name('hafalan.update');
+    Route::delete('/admin/hafalan/{id}', [adminhafalancontroller::class, 'destroy'])->name('hafalan.destroy');
+    Route::get('/admin/datahafalan/cari', [adminhafalancontroller::class, 'cari'])->name('hafalan.cari');
+    Route::get('/admin/datahafalan/create', [adminhafalancontroller::class, 'create'])->name('hafalan.create');
+    Route::post('/admin/datahafalan', [adminhafalancontroller::class, 'store'])->name('hafalan.store');
+    Route::delete('/admin/datahafalan/multidel', [adminhafalancontroller::class, 'multidel'])->name('hafalan.multidel');
 
 
     //mapel

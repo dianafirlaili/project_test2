@@ -17,7 +17,7 @@
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Beranda</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('siswa') }}">@yield('title')</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('santri') }}">@yield('title')</a></div>
                 <div class="breadcrumb-item">Edit</div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('siswa.update', $id->id) }}" method="post">
+                    <form action="{{ route('santri.update', $id->id) }}" method="post">
                         @method('put')
                         @csrf
 
@@ -110,8 +110,8 @@
 
                                 <select class="form-control  @error('jk') is-invalid @enderror" name="jk" required>
                                     <option>{{ $id->jk }}</option>
-                                    <option>Laki-laki</option>
-                                    <option>Perempuan</option>
+                                    <option value="1">Laki-laki</option>
+                                    <option value="2">Perempuan</option>
                                 </select>
                                 @error('jk')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -146,10 +146,12 @@
                                 <select class="form-control  @error('kelas_id') is-invalid @enderror" name="kelas_id"
                                     required>
                                     @foreach ($k1 as $k)
-                                        <option value="{{ $id->kelas_id }}">{{ $k->tingkatan . ' ' . $k->jurusan }}</option>
+                                        <option value="{{ $id->kelas_id }}">{{ $k->tingkatan . ' ' . $k->jurusan }}
+                                        </option>
                                     @endforeach
                                     @forelse ($kelas as $d)
-                                        <option value="{{ $d->id }}">{{ $d->tingkatan . ' ' . $d->jurusan }}</option>
+                                        <option value="{{ $d->id }}">{{ $d->tingkatan . ' ' . $d->jurusan }}
+                                        </option>
                                     @empty
                                         <option value=""> Data belum tersedia</option>
                                     @endforelse

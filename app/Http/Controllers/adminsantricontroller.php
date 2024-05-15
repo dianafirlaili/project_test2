@@ -141,7 +141,7 @@ class adminsantricontroller extends Controller
 
 
 
-        return redirect()->route('siswa')->with('status', 'Data berhasil tambahkan!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        return redirect()->route('santri')->with('status', 'Data berhasil tambahkan!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
 
     public function edit(siswa $id)
@@ -270,7 +270,7 @@ class adminsantricontroller extends Controller
         }
 
 
-        return redirect()->route('siswa')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        return redirect()->route('santri')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
     public function destroy(siswa $id)
     {

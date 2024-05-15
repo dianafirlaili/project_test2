@@ -25,11 +25,9 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-
                     <div class="d-flex bd-highlight mb-3 align-items-center">
-
                         <div class="p-2 bd-highlight">
-                            <form action="{{ route('mapel.cari') }}" method="GET">
+                            <form action="{{ route('kamar.cari') }}" method="GET">
                                 <input type="text" class="babeng babeng-select  ml-0" name="cari">
                         </div>
                         <div class="p-2 bd-highlight">
@@ -41,14 +39,13 @@
                         </div>
 
                         <div class="ml-auto p-2 bd-highlight">
-                            <x-button-create link="{{ route('mapel.create') }}"></x-button-create>
+                            <x-button-create link="{{ route('kamar.create') }}"></x-button-create>
 
                             </form>
 
                         </div>
                     </div>
-
-                    <x-jsmultidel link="{{ route('mapel.multidel') }}" />
+                    <x-jsmultidel link="{{ route('kamar.multidel') }}" />
 
                     @if ($datas->count() > 0)
                         <x-jsdatatable />
@@ -60,6 +57,7 @@
                                 <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All
                                 </th>
                                 <th>Kamar</th>
+                                <th>Kategori</th>
                                 <th>Kapasitas</th>
                                 <th>Status</th>
                                 <th class="text-center">Aksi</th>
@@ -79,7 +77,6 @@
                                     <td>
                                         {{ $data->kapasitas }}
                                     </td>
-
                                     <td>
                                         {{ $data->status }}
                                     </td>

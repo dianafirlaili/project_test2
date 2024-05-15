@@ -1,7 +1,7 @@
 <li {{ $pages == 'dashboard' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('dashboard') }}"><i
             class="fas fa-home"></i> <span>Beranda</span></a></li>
 <li
-    class="nav-item dropdown {{ $pages == 'users' || $pages == 'tapel' || $pages == 'siswa' || $pages == 'guru' || $pages == 'kelas' || $pages == 'guru' || $pages == 'mapel' ? 'active' : '' }}">
+    class="nav-item dropdown {{ $pages == 'users' || $pages == 'tapel' || $pages == 'santri' || $pages == 'guru' || $pages == 'kelas' || $pages == 'kamar' || $pages == 'mapel' ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-dumpster"></i>
         <span>Mastering</span></a>
     <ul class="dropdown-menu">
@@ -21,7 +21,7 @@
     </ul>
 </li>
 
-{{-- <li class="nav-item dropdown {{ $pages == 'mapel' || $pages == 'silabus' || $pages == 'penilaian' ? 'active' : '' }}">
+{{-- <li class="nav-item dropdown {{ $pages == 'hafalan' || $pages == 'silabus' || $pages == 'penilaian' ? 'active' : '' }}">
     <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
         <span>Pembelajaran</span></a>
     <ul class="dropdown-menu">
@@ -37,8 +37,8 @@
     </ul>
 </li> --}}
 
-<li {{ $pages == 'hafalan' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('dashboard') }}"><i
+<li {{ $pages == 'hafalan' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('hafalan') }}"><i
             class="fas fa-chart-bar"></i> <span>Hafalan Santri</span></a></li>
 
-<li {{ $pages == 'laporan' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('dashboard') }}"><i
+<li {{ $pages == 'laporan' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('penilaian') }}"><i
             class="fab fa-readme"></i> <span>Laporan</span></a></li>

@@ -71,7 +71,7 @@
                                 {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}
                             </td>
                             <td>
-                                {{ $data->tingkatan . ' ' . $data->jurusan . ' ' . $data->suffix }}
+                                {{ $data->tingkatan }}
                             </td>
                             <td data-toggle="modal" data-target="#pilihwalikelas{{ $data->id }}">
                                 <label for=""
@@ -124,7 +124,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Pilih Walikelas {{ $data->tingkatan }}
-                                {{ $data->jurusan }} {{ $data->suffix }}</h5>
+                                {{ $data->kelas }} {{ $data->suffix }}</h5>
                         </div>
                         <div class="modal-body">
 
