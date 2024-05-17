@@ -40,49 +40,23 @@
                                 <label class="form-label">Pilih Tingkatan</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="X" class="selectgroup-input"
-                                            {{ $id->tingkatan == 'X' ? 'checked=""' : '' }}>
-                                        <span class="selectgroup-button">X</span>
+                                        <input type="radio" name="tingkatan" value="7" class="selectgroup-input"
+                                            {{ $id->tingkatan == '7' ? 'checked=""' : '' }}>
+                                        <span class="selectgroup-button">7</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="XI" class="selectgroup-input"
-                                            {{ $id->tingkatan == 'XI' ? 'checked=""' : '' }}>
-                                        <span class="selectgroup-button">XI</span>
+                                        <input type="radio" name="tingkatan" value="8" class="selectgroup-input"
+                                            {{ $id->tingkatan == '8' ? 'checked=""' : '' }}>
+                                        <span class="selectgroup-button">8</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="XII" class="selectgroup-input"
-                                            {{ $id->tingkatan == 'XII' ? 'checked=""' : '' }}>
-                                        <span class="selectgroup-button">XII</span>
+                                        <input type="radio" name="tingkatan" value="9" class="selectgroup-input"
+                                            {{ $id->tingkatan == '9' ? 'checked=""' : '' }}>
+                                        <span class="selectgroup-button">9</span>
                                     </label>
 
                                 </div>
                             </div>
-                            <div class="form-group col-md-3 col-3 mt-0 ml-5">
-                                <label class="form-label">Pilih Jurusan</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="jurusan" value="OTO" class="selectgroup-input"
-                                            {{ $id->jurusan == 'OTO' ? 'checked=""' : '' }}>
-                                        <span class="selectgroup-button">OTO</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="jurusan" value="TKJ" class="selectgroup-input"
-                                            {{ $id->jurusan == 'TKJ' ? 'checked=""' : '' }}>
-                                        <span class="selectgroup-button">TKJ</span>
-                                    </label>
-
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3 col-3 mt-0 ml-5">
-                                <label for="nama">Suffix <code>*)</code></label>
-                                <input type="text" name="suffix" id="suffix"
-                                    class="form-control @error('suffix') is-invalid @enderror"
-                                    value="{{ old('suffix') ? old('suffix') : $id->suffix }}" required>
-                                @error('suffix')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
-                                @enderror
-                            </div>
-
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="guru_id">Pilih Walikelas <code></code></label>
 

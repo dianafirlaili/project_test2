@@ -78,18 +78,10 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="agama">Pilih Agama <code></code></label>
-
-                                <select class="form-control  @error('agama') is-invalid @enderror" name="agama" required>
-                                    <option>{{ $id->agama }}</option>
-                                    <option>Islam</option>
-                                    <option>Kristen</option>
-                                    <option>Katholik</option>
-                                    <option>Hindu</option>
-                                    <option>Budha</option>
-                                    <option>Konghucu</option>
-                                    <option>Lain-lain</option>
-                                </select>
+                                <label for="agama">Agama <code></code></label>
+                                <input type="text" name="agama" id="agama"
+                                    class="form-control @error('agama') is-invalid @enderror"
+                                    value="{{ old('agama') ? old('agama') : $id->agama }}" readonly>
                                 @error('agama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
@@ -106,14 +98,15 @@
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="jk">Pilih Jenis Kelamin <code></code></label>
-
-                                <select class="form-control  @error('jk') is-invalid @enderror" name="jk" required>
-                                    <option>{{ $id->jk }}</option>
-                                    <option value="1">Laki-laki</option>
-                                    <option value="2">Perempuan</option>
-                                </select>
-                                @error('jk')
+                                <label for="jk">Jenis Kelamin <code></code></label>
+                                <input type="text" name="jk" id="jk"
+                                    class="form-control @error('jk') is-invalid @enderror" value="<?php if ($id->jk == 1) {
+                                        echo 'Laki-laki';
+                                    } else {
+                                        echo 'Perempuan';
+                                    } ?>"
+                                    readonly>
+                                @error('alamat')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
@@ -146,11 +139,11 @@
                                 <select class="form-control  @error('kelas_id') is-invalid @enderror" name="kelas_id"
                                     required>
                                     @foreach ($k1 as $k)
-                                        <option value="{{ $id->kelas_id }}">{{ $k->tingkatan . ' ' . $k->jurusan }}
+                                        <option value="{{ $id->kelas_id }}">{{ $k->tingkatan }}
                                         </option>
                                     @endforeach
                                     @forelse ($kelas as $d)
-                                        <option value="{{ $d->id }}">{{ $d->tingkatan . ' ' . $d->jurusan }}
+                                        <option value="{{ $d->id }}">{{ $d->tingkatan }}
                                         </option>
                                     @empty
                                         <option value=""> Data belum tersedia</option>

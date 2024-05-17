@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Penilaian
+    Laporan
 @endsection
 
 @push('before-script')
@@ -21,12 +21,11 @@
                 <div class="breadcrumb-item">@yield('title')</div>
             </div>
         </div>
-
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('guru.penilaian.cari') }}" method="GET" class="d-inline">
+                    <form action="{{ route('penilaian.cari') }}" method="GET" class="d-inline">
                         <div class="row mt-0">
 
                             <div class="col-4 col-md-2">
@@ -44,8 +43,7 @@
 
                                     <option disabled selected value=""> Pilih Kelas</option>
                                     @foreach ($kelas as $t)
-                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }} {{ $t->jurusan }}
-                                            {{ $t->suffix }} </option>
+                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -71,8 +69,8 @@
                     <table id="example" class="table table-striped table-bordered mt-1 table-sm" style="width:100%">
                         <thead>
                             <tr style="background-color: #F1F1F1">
-                                <th class="text-center py-2 babeng-min-row">
-                                    No</th>
+                                <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All
+                                </th>
                                 <th>Mapel</th>
                                 <th>Kelas</th>
                                 <th>Guru Pengajar</th>
@@ -83,7 +81,10 @@
                             @forelse ($datas as $data)
                                 <tr id="sid{{ $data->id }}">
                                     <td class="text-center">
-                                        {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}</td>
+                                        <input type="checkbox" name="ids" class="checkBoxClass "
+                                            value="{{ $data->id }}">
+                                        {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}
+                                    </td>
                                     <td>
                                         {{ $data->mapel != null ? $data->mapel->nama : 'Data tidak ditemukan' }}
                                     </td>
@@ -99,7 +100,7 @@
 
                                     <td class="text-center babeng-min-row">
 
-                                        <a href="{{ route('guru.penilaian.inputnilai', $data->id) }}" type="button"
+                                        <a href="{{ route('penilaian.inputnilai', $data->id) }}" type="button"
                                             class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top"
                                             title="Input Nilai Siswa!">
                                             <i class="far fa-star"></i>
@@ -118,8 +119,18 @@
                     @php
                         $cari = $request->cari;
                     @endphp
-                    {{ $datas->onEachSide(1)->links() }}
-
+                    <div class="d-flex justify-content-between flex-row-reverse mt-3">
+                        <div>
+                            {{ $datas->onEachSide(1)->links() }}
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-sm  btn-danger mb-2" id="deleteAllSelectedRecord"
+                                onclick="return  confirm('Anda yakin menghapus data ini? Y/N')" data-toggle="tooltip"
+                                data-placement="top" title="Hapus Terpilih">
+                                <i class="fas fa-trash-alt mr-2"></i> Hapus Terpilih</i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
