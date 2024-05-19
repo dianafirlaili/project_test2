@@ -51,56 +51,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-warning">
-                            <i class="fab fa-monero"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Jumlah Mata Pelajaran</h4>
-                            </div>
-                            <div class="card-body">
-                                @php
-                                    $jmlmapel = DB::table('mapel')->whereNull('deleted_at')->count();
-                                    $jmlmapelperkelas = DB::table('dataajar')->whereNull('deleted_at')->count();
-                                @endphp
-                                {{ $jmlmapel }} Mapel
-                                <div class="text-muted text-small"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> Total {{ $jmlmapelperkelas }} Mapel</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Bank Soal</h4>
-                            </div>
-                            <div class="card-body">
-                                @php
-                                    $jmlkompetensidasar = DB::table('kompetensidasar')
-                                        ->whereNull('deleted_at')
-                                        ->count();
-                                    $jmlbanksoal = DB::table('banksoal')->whereNull('deleted_at')->count();
-                                @endphp
-                                {{ $jmlbanksoal }} Soal
-                                <div class="text-muted text-small"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> {{ $jmlkompetensidasar }} Silabus</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <h4>Silabus dan Bank Soal</h4>
-                </div>
+            <div class="card" hidden>
                 <div class="card-body">
                     <div class="row">
                         @forelse ($mapel as $m)

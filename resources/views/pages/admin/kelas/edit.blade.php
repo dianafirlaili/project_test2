@@ -18,14 +18,14 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Beranda</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('kelas') }}">@yield('title')</a></div>
-                <div class="breadcrumb-item">Edit</div>
+                <div class="breadcrumb-item">Ubah</div>
             </div>
         </div>
 
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Edit</h5>
+                    <h5>Ubah Data Kelas</h5>
                 </div>
                 <div class="card-body">
 
@@ -54,8 +54,22 @@
                                             {{ $id->tingkatan == '9' ? 'checked=""' : '' }}>
                                         <span class="selectgroup-button">9</span>
                                     </label>
-
                                 </div>
+                            </div>
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
+
+                                <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
+                                    required>
+                                    @forelse ($tapel as $d)
+                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                    @empty
+                                        <option value=""> Data belum tersedia</option>
+                                    @endforelse
+                                </select>
+                                @error('tapel_id')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="guru_id">Pilih Walikelas <code></code></label>

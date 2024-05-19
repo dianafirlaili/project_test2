@@ -14,8 +14,8 @@ class kamar extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nokamar',
-        'kapasitas',
+        'nama',
+        'kategori',
         'status',
     ];
 }

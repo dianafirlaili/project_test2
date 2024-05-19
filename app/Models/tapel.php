@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class tapel extends Model
 {
-        public $table = "tapel";
+    public $table = "tapel";
 
-        use HasFactory;
+    use HasFactory;
 
-        protected $fillable = [
-            'nama',
-        ];
-
+    protected $fillable = [
+        'id',
+        'nama',
+    ];
 }

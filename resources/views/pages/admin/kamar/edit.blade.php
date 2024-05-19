@@ -18,14 +18,14 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('mapel') }}">@yield('title')</a></div>
-                <div class="breadcrumb-item">Edit</div>
+                <div class="breadcrumb-item">Ubah</div>
             </div>
         </div>
 
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Edit</h5>
+                    <h5>Ubah Data Kamar</h5>
                 </div>
                 <div class="card-body">
 

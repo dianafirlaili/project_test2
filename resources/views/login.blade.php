@@ -101,12 +101,6 @@
                                 </form>
                                 <br>
 
-
-                                <div class="float-right">
-                                    <a href="./" class="btn btn-info text-small">
-                                        <i class="fas fa-home"></i> Beranda
-                                    </a>
-                                </div>
                             </div>
                         </div>
 

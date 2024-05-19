@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Fungsi;
 use App\Models\kelas;
+use App\Models\kamar;
 use App\Models\siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,12 +28,13 @@ class adminsantricontroller extends Controller
     {
         #WAJIB
         $pages = 'santri';
-        $datas = siswa::with('users')->with('kelas')
+        $datas = siswa::with('users')->with('kelas')->with('kamar')
             ->paginate(Fungsi::paginationjml());
         $kelas = kelas::get();
+        $kamar = kamar::get();
         // dd($datas);
 
-        return view('pages.admin.santri.index', compact('datas', 'request', 'pages', 'kelas'));
+        return view('pages.admin.santri.index', compact('datas', 'request', 'pages', 'kelas', 'kamar'));
     }
     public function cari(Request $request)
     {
@@ -69,7 +71,9 @@ class adminsantricontroller extends Controller
 
         $kelas = DB::table('kelas')->get();
 
-        return view('pages.admin.santri.create', compact('pages', 'tapel', 'kelas'));
+        $kamar = DB::table('kamar')->get();
+
+        return view('pages.admin.santri.create', compact('pages', 'tapel', 'kelas', 'kamar'));
     }
 
     public function store(Request $request)
@@ -129,6 +133,7 @@ class adminsantricontroller extends Controller
                 'alamat'     =>   $request->alamat,
                 'jk'     =>   $request->jk,
                 'kelas_id'     =>   $request->kelas_id,
+                'kamar_id'     =>   $request->kamar_id,
                 'tapel_id'     =>   $request->tapel_id,
                 'siswafoto' =>   $photoku,
                 'moodleuser'     =>   $request->moodleuser,
@@ -154,11 +159,13 @@ class adminsantricontroller extends Controller
 
         $tapel = DB::table('tapel')->get();
         $kelas = DB::table('kelas')->get();
+        $kamar = DB::table('kamar')->get();
 
         $t1 = DB::table('tapel')->where('id', $id->tapel_id)->get();
         $k1 = DB::table('kelas')->where('id', $id->kelas_id)->get();
+        $r1 = DB::table('kamar')->where('id', $id->kamar_id)->get();
 
-        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 't1', 'k1', 'u'));
+        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 't1', 'k1', 'r1', 'u'));
     }
     public function update(siswa $id, Request $request)
     {

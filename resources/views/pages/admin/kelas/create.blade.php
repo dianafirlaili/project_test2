@@ -25,7 +25,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Tambah</h5>
+                    <h5>Tambah Data Kelas</h5>
                 </div>
                 <div class="card-body">
 
@@ -39,20 +39,35 @@
                                 <label class="form-label">Pilih Tingkatan</label>
                                 <div class="selectgroup w-100">
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="X" class="selectgroup-input"
+                                        <input type="radio" name="tingkatan" value="7" class="selectgroup-input"
                                             checked="">
                                         <span class="selectgroup-button">7</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="XI" class="selectgroup-input">
+                                        <input type="radio" name="tingkatan" value="8" class="selectgroup-input">
                                         <span class="selectgroup-button">8</span>
                                     </label>
                                     <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="XII" class="selectgroup-input">
+                                        <input type="radio" name="tingkatan" value="9" class="selectgroup-input">
                                         <span class="selectgroup-button">9</span>
                                     </label>
-
                                 </div>
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
+
+                                <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
+                                    required>
+                                    @forelse ($tapel as $d)
+                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                    @empty
+                                        <option value=""> Data belum tersedia</option>
+                                    @endforelse
+                                </select>
+                                @error('tapel_id')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
@@ -71,8 +86,6 @@
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-
-
                         </div>
 
                         <div class="card-footer text-right mr-5">

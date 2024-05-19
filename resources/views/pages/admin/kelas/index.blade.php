@@ -58,7 +58,8 @@
                 <thead>
                     <tr style="background-color: #F1F1F1">
                         <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All</th>
-                        <th>Nama Kelas</th>
+                        <th>Kelas</th>
+                        <th>Tahun Pelajaran</th>
                         <th>Walikelas</th>
                         <th class="text-center">Aksi</th>
                     </tr>
@@ -72,6 +73,9 @@
                             </td>
                             <td>
                                 {{ $data->tingkatan }}
+                            </td>
+                            <td>
+                                {{ $data->tapel->nama }}
                             </td>
                             <td data-toggle="modal" data-target="#pilihwalikelas{{ $data->id }}">
                                 <label for=""

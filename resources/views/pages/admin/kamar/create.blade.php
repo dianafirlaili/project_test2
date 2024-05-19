@@ -25,7 +25,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Tambah</h5>
+                    <h5>Tambah Data Kamar</h5>
                 </div>
                 <div class="card-body">
 
@@ -35,24 +35,31 @@
                         <div class="row">
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="nama">No Kamar <code>*)</code></label>
-                                <input type="text" name="nokamar" id="nokamar"
-                                    class="form-control @error('nokamar') is-invalid @enderror" value="{{ old('nokamar') }}"
+                                <label for="nama">Kamar <code>*)</code></label>
+                                <input type="text" name="nama" id="nama"
+                                    class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}"
                                     required>
-                                @error('nokamar')
+                                @error('nama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label>Kapasitas</label>
-                                <select class="form-control form-control-lg" required name="kapasitas">
-                                    @if (old('kapasitas'))
-                                        <option>{{ old('kapasitas') }}</option>
-                                    @endif
-                                    @for ($i = 2; $i <= 12; $i += 2)
-                                        <option>{{ $i }} santri</option>
-                                    @endfor
+                                <label>Kategori</label>
+                                <select class="form-control form-control-lg" required name="kategori">
+                                    <option value>---Pilih Kategori---</option>
+                                    <option value="1">KS-Putra</option>
+                                    <option value="2">KS-Putri</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label>Status</label>
+                                <select class="form-control form-control-lg" required name="status">
+                                    <option value>---Pilih Status---</option>
+                                    <option value="1">Penuh</option>
+                                    <option value="2">Tersisa</option>
+                                    <option value="3">Belum Terisi</option>
                                 </select>
                             </div>
                         </div>

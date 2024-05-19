@@ -58,7 +58,6 @@
                                 </th>
                                 <th>Kamar</th>
                                 <th>Kategori</th>
-                                <th>Kapasitas</th>
                                 <th>Status</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -73,9 +72,6 @@
                                     </td>
                                     <td>
                                         {{ Str::limit($data->nokamar, 25, ' ...') }}
-                                    </td>
-                                    <td>
-                                        {{ $data->kapasitas }}
                                     </td>
                                     <td>
                                         {{ $data->status }}

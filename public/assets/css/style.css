@@ -4020,6 +4020,7 @@ body.layout-3 .main-footer {
 }
 
 .main-sidebar .sidebar-brand {
+  font-size: 16px;
   display: inline-block;
   width: 100%;
   text-align: center;
@@ -4348,4 +4349,5 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     -webkit-transform: scale(1.2, 1.2);
     opacity: 0.0;
   }
+
 }

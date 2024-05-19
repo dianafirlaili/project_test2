@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Tahun Pelajaran
+    Santri
 @endsection
 
 @push('before-script')
@@ -25,7 +25,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Tambah</h5>
+                    <h5>Tambah Data Santri</h5>
                 </div>
                 <div class="card-body">
 
@@ -77,17 +77,9 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="agama">Pilih Agama <code></code></label>
-
-                                <select class="form-control  @error('agama') is-invalid @enderror" name="agama" required>
-                                    <option>Islam</option>
-                                    <option>Kristen</option>
-                                    <option>Katholik</option>
-                                    <option>Hindu</option>
-                                    <option>Budha</option>
-                                    <option>Konghucu</option>
-                                    <option>Lain-lain</option>
-                                </select>
+                                <label for="agama">Agama <code></code></label>
+                                <input type="text" name="agama" id="agama"
+                                    class="form-control @error('tgllahir') is-invalid @enderror" value="Islam" required>
                                 @error('agama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
@@ -104,9 +96,10 @@
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="jk">Pilih Jenis Kelamin <code></code></label>
+                                <label for="jk">Jenis Kelamin <code></code></label>
 
                                 <select class="form-control  @error('jk') is-invalid @enderror" name="jk" required>
+                                    <option value>---Pilih Jenis Kelamin---</option>
                                     <option value="1">Laki-laki</option>
                                     <option value="2">Perempuan</option>
                                 </select>
@@ -117,10 +110,11 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
+                                <label for="tapel_id">Tahun Pelajaran <code></code></label>
 
                                 <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
+                                    <option value>---Pilih Tahun Pelajaran---</option>
                                     @forelse ($tapel as $d)
                                         <option value="{{ $d->id }}">{{ $d->nama }}</option>
                                     @empty
@@ -134,12 +128,13 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Pilih Kelas <code></code></label>
+                                <label for="kelas_id">Kelas <code></code></label>
 
                                 <select class="form-control  @error('kelas_id') is-invalid @enderror" name="kelas_id"
                                     required>
+                                    <option value>---Pilih Kelas---</option>
                                     @forelse ($kelas as $d)
-                                        <option value="{{ $d->id }}">{{ $d->tingkatan . ' ' . $d->jurusan }}
+                                        <option value="{{ $d->id }}">{{ $d->tingkatan }}
                                         </option>
                                     @empty
                                         <option value=""> Data belum tersedia</option>
@@ -150,6 +145,23 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="kelas_id">Kamar <code></code></label>
+
+                                <select class="form-control  @error('kamar_id') is-invalid @enderror" name="kamar_id"
+                                    required>
+                                    <option value>---Pilih Kamar---</option>
+                                    @forelse ($kamar as $d)
+                                        <option value="{{ $d->id }}">{{ $d->nama }}
+                                        </option>
+                                    @empty
+                                        <option value=""> Data belum tersedia</option>
+                                    @endforelse
+                                </select>
+                                @error('kelas_id')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="email">Email<code></code></label>
@@ -185,61 +197,6 @@
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-
-                            {{-- <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                        <label for="moodleuser">User Ujian<code></code></label>
-
-
-                        <input type="text" class="form-control  @error('moodleuser') is-invalid @enderror" name="moodleuser" required>
-
-                        @error('moodleuser')<div class="invalid-feedback"> {{$message}}</div>
-                        @enderror
-                    </div> --}}
-
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="moodlepass">Password Ujian<code></code></label>
-
-
-                                <input type="text" class="form-control  @error('moodlepass') is-invalid @enderror"
-                                    name="moodlepass" required>
-
-                                @error('moodlepass')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
-                                @enderror
-                            </div>
-                            @push('after-script')
-                                <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        $.uploadPreview({
-                                            input_field: "#image-upload", // Default: .image-upload
-                                            preview_box: "#image-preview", // Default: .image-preview
-                                            label_field: "#image-label", // Default: .image-label
-                                            label_default: "Logo Sekolah", // Default: Choose File
-                                            label_selected: "Ganti Logo Sekolah", // Default: Change File
-                                            no_label: false // Default: false
-                                        });
-
-
-
-                                    });
-                                </script>
-                            @endpush
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <div id="image-preview" class="image-preview">
-                                    <label for="image-upload" id="image-label2">UPLOAD FOTO</label>
-                                    <input type="file" name="siswafoto" id="image-upload"
-                                        class="@error('siswafoto')
-                        is_invalid
-                    @enderror"
-                                        accept="image/png, image/gif, image/jpeg" />
-
-                                    @error('siswafoto')
-                                        <div class="invalid-feedback"> {{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
                         </div>
 
                         <div class="card-footer text-right mr-5">

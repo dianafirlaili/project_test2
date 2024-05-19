@@ -35,52 +35,50 @@ class adminkamarcontroller extends Controller
         #WAJIB
         $pages = 'kamar';
         $datas = DB::table('kamar')
-            ->where('nokamar', 'like', "%" . $cari . "%")
+            ->where('nama', 'like', "%" . $cari . "%")
             ->paginate(Fungsi::paginationjml());
 
         return view('pages.admin.kamar.index', compact('datas', 'request', 'pages'));
     }
+
     public function create()
     {
         $pages = 'kamar';
-
-        $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
-
-        return view('pages.admin.kamar.create', compact('pages', 'tipepelajaran'));
+        return view('pages.admin.kamar.create', compact('pages'));
     }
 
     public function store(Request $request)
     {
         $cek = DB::table('kamar')
-            ->where('nokamar', $request->nokamar)
+            ->where('nama', $request->nama)
             ->count();
         if ($cek > 0) {
             $request->validate(
                 [
-                    'nokamar' => 'required|unique:kamar,nokamar',
+                    'nama' => 'required|unique:kamar,nama',
                 ],
                 [
-                    'nokamar.unique' => 'nokamar sudah digunakan',
+                    'nama.unique' => 'nama sudah digunakan',
                 ]
             );
         }
 
         $request->validate(
             [
-                'nokamar' => 'required',
-                'kapasitas' => 'required|min:1|max:100',
+                'nama' => 'required',
+                'kategori' => 'required|min:1|max:100',
                 'status' => 'required',
 
             ],
             [
-                'nokamar.nokamar' => 'No kamar harus diisi',
+                'nama.nama' => 'Nama Kamar harus diisi',
             ]
         );
 
         DB::table('kamar')->insert(
             array(
-                'nokamar'     =>   $request->nokamar,
-                'kapasitas'     =>   $request->kapasitas,
+                'nama'     =>   $request->nama,
+                'kategori'     =>   $request->kategori,
                 'status'     =>   $request->status,
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
@@ -92,18 +90,17 @@ class adminkamarcontroller extends Controller
     public function edit(kamar $id)
     {
         $pages = 'kamar';
-
-        $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
-        return view('pages.admin.kamar.edit', compact('pages', 'id', 'tipepelajaran'));
+        //$tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
+        return view('pages.admin.kamar.edit', compact('pages', 'id'));
     }
     public function update(kamar $id, Request $request)
     {
 
-        if ($request->nokamar !== $id->nokamar) {
+        if ($request->nama !== $id->nama) {
 
             $request->validate(
                 [
-                    'nokamar' => "required",
+                    'nama' => "required",
                 ],
                 []
             );
@@ -111,18 +108,18 @@ class adminkamarcontroller extends Controller
 
         $request->validate(
             [
-                'nokamar' => 'required',
+                'nama' => 'required',
             ],
             [
-                'nokamar.required' => 'nokamar harus diisi',
+                'nama.required' => 'nama kamar harus diisi',
             ]
         );
 
 
         kamar::where('id', $id->id)
             ->update([
-                'nokamar'     =>   $request->nokamar,
-                'kapaitas'     =>   $request->kapasitas,
+                'nama'     =>   $request->nama,
+                'kategori'     =>   $request->kategori,
                 'status'     =>   $request->status,
                 'updated_at' => date("Y-m-d H:i:s")
             ]);

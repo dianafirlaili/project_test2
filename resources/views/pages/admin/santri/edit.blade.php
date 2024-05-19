@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Tahun Pelajaran
+    Santri
 @endsection
 
 @push('before-script')
@@ -18,14 +18,14 @@
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Beranda</a></div>
                 <div class="breadcrumb-item"><a href="{{ route('santri') }}">@yield('title')</a></div>
-                <div class="breadcrumb-item">Edit</div>
+                <div class="breadcrumb-item">Ubah</div>
             </div>
         </div>
 
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Edit</h5>
+                    <h5>Ubah Data Santri</h5>
                 </div>
                 <div class="card-body">
 
@@ -113,7 +113,7 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
+                                <label for="tapel_id">Tahun Pelajaran <code></code></label>
 
                                 <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
@@ -134,7 +134,7 @@
 
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Pilih Kelas <code></code></label>
+                                <label for="kelas_id">Kelas <code></code></label>
 
                                 <select class="form-control  @error('kelas_id') is-invalid @enderror" name="kelas_id"
                                     required>
@@ -154,6 +154,23 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="kelas_id">Kamar <code></code></label>
+
+                                <select class="form-control  @error('kamar_id') is-invalid @enderror" name="kamar_id"
+                                    required>
+                                    <option value>---Pilih Kamar---</option>
+                                    @forelse ($kamar as $d)
+                                        <option value="{{ $d->id }}">{{ $d->nama }}
+                                        </option>
+                                    @empty
+                                        <option value=""> Data belum tersedia</option>
+                                    @endforelse
+                                </select>
+                                @error('kelas_id')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="email">Email<code></code></label>
@@ -191,74 +208,15 @@
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-
-                            {{-- <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                            <label for="moodleuser">User Ujian<code></code></label>
-
-
-                            <input type="text" class="form-control  @error('moodleuser') is-invalid @enderror" name="moodleuser"  value="{{old('moodleuser') ? old('moodleuser') : $id->moodleuser}}" required>
-
-                            @error('moodleuser')<div class="invalid-feedback"> {{$message}}</div>
-                            @enderror
-                        </div> --}}
-
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="moodlepass">Password Ujian<code></code></label>
-
-
                                 <input type="text" class="form-control  @error('moodlepass') is-invalid @enderror"
                                     name="moodlepass"
                                     value="{{ old('moodleuser') ? old('moodlepass') : $id->moodlepass }}" required>
-
                                 @error('moodlepass')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
-                            @push('after-script')
-                                <script type="text/javascript">
-                                    $(document).ready(function() {
-                                        $.uploadPreview({
-                                            input_field: "#image-upload", // Default: .image-upload
-                                            preview_box: "#image-preview", // Default: .image-preview
-                                            label_field: "#image-label", // Default: .image-label
-                                            label_default: "Logo Sekolah", // Default: Choose File
-                                            label_selected: "Ganti Logo Sekolah", // Default: Change File
-                                            no_label: false // Default: false
-                                        });
-
-
-
-                                    });
-                                </script>
-                            @endpush
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-
-                                @php
-                                    $siswa = asset('/storage/') . '/' . $id->siswafoto;
-                                    $randomimg =
-                                        'https://ui-avatars.com/api/?name=' .
-                                        $id->nama .
-                                        '&color=7F9CF5&background=EBF4FF';
-                                @endphp
-                                <img alt="image" src="{{ $id->siswafoto != null ? $siswa : $randomimg }}"
-                                    class="img-thumbnail" data-toggle="tooltip" title="{{ $id->nama }}"
-                                    width="250px" height="300px" style="object-fit:cover;">
-                            </div>
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <div id="image-preview" class="image-preview">
-                                    <label for="image-upload" id="image-label2">UPLOAD FOTO</label>
-                                    <input type="file" name="siswafoto" id="image-upload"
-                                        class="@error('siswafoto')
-                            is_invalid
-                        @enderror"
-                                        accept="image/png, image/gif, image/jpeg" />
-
-                                    @error('siswafoto')
-                                        <div class="invalid-feedback"> {{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
 
                         </div>
 

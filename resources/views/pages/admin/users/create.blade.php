@@ -25,7 +25,7 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Tambah</h5>
+                    <h5>Tambah Data User</h5>
                 </div>
                 <div class="card-body">
 
