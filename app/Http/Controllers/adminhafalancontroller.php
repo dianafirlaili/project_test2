@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Fungsi;
 use App\Models\hafalan;
+use App\Models\kelas;
+use App\Models\surah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +27,9 @@ class adminhafalancontroller extends Controller
         #WAJIB
         $pages = 'hafalan';
         $datas = hafalan::paginate(Fungsi::paginationjml());
+        $kelas = kelas::get();
 
-        return view('pages.admin.hafalan.index', compact('datas', 'request', 'pages'));
+        return view('pages.admin.hafalan.index', compact('datas', 'request', 'pages', 'kelas'));
     }
     public function cari(Request $request)
     {
@@ -43,10 +46,10 @@ class adminhafalancontroller extends Controller
     public function create()
     {
         $pages = 'hafalan';
-
+        $surah = Surah::all();
         $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
 
-        return view('pages.admin.hafalan.create', compact('pages', 'tipepelajaran'));
+        return view('pages.admin.hafalan.create', compact('pages', 'tipepelajaran', 'surah'));
     }
 
     public function store(Request $request)
@@ -57,7 +60,7 @@ class adminhafalancontroller extends Controller
         if ($cek > 0) {
             $request->validate(
                 [
-                    'nama' => 'required|unique:mapel,nama',
+                    'nama' => 'required|unique:surah,nama',
                 ],
                 [
                     'nama.unique' => 'nama sudah digunakan',
@@ -92,7 +95,7 @@ class adminhafalancontroller extends Controller
 
 
 
-        return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        //return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
 
     public function edit(hafalan $id)
@@ -137,7 +140,7 @@ class adminhafalancontroller extends Controller
             ]);
 
 
-        return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        // return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
     public function destroy(hafalan $id)
     {

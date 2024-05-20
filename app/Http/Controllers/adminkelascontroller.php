@@ -101,10 +101,10 @@ class adminkelascontroller extends Controller
     {
         $tapel = DB::table('tapel')->get();
         $pages = 'kelas';
-
         $walikelas = DB::table('guru')->whereNull('deleted_at')->get();
         return view('pages.admin.kelas.edit', compact('pages', 'tapel', 'id', 'walikelas'));
     }
+
     public function update(kelas $id, Request $request)
     {
 

@@ -14,8 +14,6 @@
                     class="fas fa-user-graduate"></i><span>Santri</span></a></li>
         <li {{ $pages == 'kelas' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('kelas') }}"><i
                     class="fas fa-school"></i><span>Kelas</span></a></li>
-        <li {{ $pages == 'kamar' ? 'class=active' : '' }}><a class="nav-link" href="{{ route('kamar') }}"><i
-                    class="fas fa-bed"></i><span>Kamar</span></a></li>
     </ul>
 </li>
 

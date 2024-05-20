@@ -16,8 +16,8 @@
         <div class="section-header">
             <h1>@yield('title')</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="{{ route('mapel') }}">@yield('title')</a></div>
+                <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Beranda</a></div>
+                <div class="breadcrumb-item"><a href="{{ route('kamar') }}">@yield('title')</a></div>
                 <div class="breadcrumb-item">Ubah</div>
             </div>
         </div>
@@ -36,24 +36,31 @@
                         <div class="row">
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="nokamar">No Kamar <code>*)</code></label>
+                                <label for="nokamar">Kamar <code>*)</code></label>
                                 <input type="text" name="nokamar" id="nokamar"
-                                    class="form-control @error('nokamar') is-invalid @enderror"
-                                    value="{{ old('nokamar') ? old('nokamar') : $id->nokamar }}" required>
-                                @error('nokamar')
+                                    class="form-control @error('nama') is-invalid @enderror"
+                                    value="{{ old('nama') ? old('nama') : $id->nama }}" required>
+                                @error('nama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label>Kapasitas</label>
-                                <select class="form-control form-control-lg" required name="kapasitas">
-                                    @if (old('kapasitas'))
-                                        <option>{{ old('kapasitas') }}</option>
-                                    @endif
-                                    @for ($i = 2; $i <= 12; $i += 2)
-                                        <option>{{ $i }} santri</option>
-                                    @endfor
+                                <label>Kategori</label>
+                                <select class="form-control form-control-lg" required name="kategori">
+                                    <option value>---Pilih Kategori---</option>
+                                    <option value="1">KS-Putra</option>
+                                    <option value="2">KS-Putri</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label>Status</label>
+                                <select class="form-control form-control-lg" required name="status">
+                                    <option value>---Pilih Status---</option>
+                                    <option>Penuh</option>
+                                    <option>Tersisa</option>
+                                    <option>Belum Terisi</option>
                                 </select>
                             </div>
                         </div>
@@ -62,8 +69,6 @@
                             <button class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>

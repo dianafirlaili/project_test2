@@ -34,20 +34,7 @@
                                     placeholder="Cari . . ." autocomplete="off"
                                     value="{{ $request->cari != null ? $request->cari : '' }}">
                             </div>
-                            <div class="p-2 bd-highlight px-2">
 
-                                <select
-                                    class="js-example-basic-single py-4  @error('kelas_id')
-                            is-invalid
-                        @enderror"
-                                    name="kelas_id" style="width: 100%">
-
-                                    <option disabled selected value=""> Pilih Kelas</option>
-                                    @foreach ($kelas as $t)
-                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
                             <div class="p-2 bd-highlight">
                                 <button class="btn btn-info px-4 " type="submit" value="Cari"> <span
                                         class="pcoded-micon"><i class="fas fa-search"></i> Cari </button>

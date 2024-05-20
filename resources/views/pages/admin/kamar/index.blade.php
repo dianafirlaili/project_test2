@@ -71,7 +71,14 @@
                                         {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}
                                     </td>
                                     <td>
-                                        {{ Str::limit($data->nokamar, 25, ' ...') }}
+                                        {{ Str::limit($data->nama, 25, ' ...') }}
+                                    </td>
+                                    <td>
+                                        <?php if ($data->kategori == 1) {
+                                            echo 'KS-Putra';
+                                        } else {
+                                            echo 'KS-Putri';
+                                        } ?>
                                     </td>
                                     <td>
                                         {{ $data->status }}

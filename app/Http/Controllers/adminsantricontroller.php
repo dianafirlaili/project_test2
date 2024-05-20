@@ -31,10 +31,10 @@ class adminsantricontroller extends Controller
         $datas = siswa::with('users')->with('kelas')->with('kamar')
             ->paginate(Fungsi::paginationjml());
         $kelas = kelas::get();
-        $kamar = kamar::get();
+        //$kamar = kamar::get();
         // dd($datas);
 
-        return view('pages.admin.santri.index', compact('datas', 'request', 'pages', 'kelas', 'kamar'));
+        return view('pages.admin.santri.index', compact('datas', 'request', 'pages', 'kelas'));
     }
     public function cari(Request $request)
     {
@@ -165,7 +165,7 @@ class adminsantricontroller extends Controller
         $k1 = DB::table('kelas')->where('id', $id->kelas_id)->get();
         $r1 = DB::table('kamar')->where('id', $id->kamar_id)->get();
 
-        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 't1', 'k1', 'r1', 'u'));
+        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 'kamar', 't1', 'k1', 'r1', 'u'));
     }
     public function update(siswa $id, Request $request)
     {

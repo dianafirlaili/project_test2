@@ -57,9 +57,9 @@
                                 <label>Status</label>
                                 <select class="form-control form-control-lg" required name="status">
                                     <option value>---Pilih Status---</option>
-                                    <option value="1">Penuh</option>
-                                    <option value="2">Tersisa</option>
-                                    <option value="3">Belum Terisi</option>
+                                    <option>Penuh</option>
+                                    <option>Tersisa</option>
+                                    <option>Belum Terisi</option>
                                 </select>
                             </div>
                         </div>

@@ -25,12 +25,18 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-
                     <div class="d-flex bd-highlight mb-3 align-items-center">
-
-                        <div class="p-2 bd-highlight">
-                            <form action="{{ route('hafalan.cari') }}" method="GET">
-                                <input type="text" class="babeng babeng-select  ml-0" name="cari">
+                        <div class="col-4 col-md-2">
+                            <select
+                                class="js-example-basic-single py-0  @error('kelas_id')
+                            is-invalid
+                        @enderror"
+                                name="kelas_id" style="width: 100%">
+                                <option disabled selected value=""> Pilih Kelas</option>
+                                @foreach ($kelas as $t)
+                                    <option value="{{ $t->id }}"> {{ $t->tingkatan }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="p-2 bd-highlight">
 
@@ -63,6 +69,7 @@
                                 <th>Kelas</th>
                                 <th>Hafalan</th>
                                 <th>Surah</th>
+                                <th>Catatan</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -85,6 +92,9 @@
                                         {{ $data->tipe }}
                                     </td>
 
+                                    <td>
+                                        {{ $data->tingkatan }}
+                                    </td>
                                     <td>
                                         {{ $data->tingkatan }}
                                     </td>

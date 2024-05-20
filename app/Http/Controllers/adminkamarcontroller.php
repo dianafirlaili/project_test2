@@ -24,7 +24,8 @@ class adminkamarcontroller extends Controller
     {
         #WAJIB
         $pages = 'kamar';
-        $datas = kamar::paginate(Fungsi::paginationjml());
+        $datas = DB::table('kamar')
+            ->paginate(Fungsi::paginationjml());
 
         return view('pages.admin.kamar.index', compact('datas', 'request', 'pages'));
     }
@@ -44,7 +45,7 @@ class adminkamarcontroller extends Controller
     public function create()
     {
         $pages = 'kamar';
-        return view('pages.admin.kamar.create', compact('pages'));
+        return view('pages.admin.kamar.edit', compact('pages'));
     }
 
     public function store(Request $request)
@@ -90,9 +91,9 @@ class adminkamarcontroller extends Controller
     public function edit(kamar $id)
     {
         $pages = 'kamar';
-        //$tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
         return view('pages.admin.kamar.edit', compact('pages', 'id'));
     }
+
     public function update(kamar $id, Request $request)
     {
 
