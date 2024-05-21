@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Fungsi;
 use App\Models\kelas;
-use App\Models\kamar;
 use App\Models\siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,10 +27,10 @@ class adminsantricontroller extends Controller
     {
         #WAJIB
         $pages = 'santri';
-        $datas = siswa::with('users')->with('kelas')->with('kamar')
+        $datas = siswa::with('users')->with('kelas')
+            ->orderBy('nama', 'asc')
             ->paginate(Fungsi::paginationjml());
         $kelas = kelas::get();
-        //$kamar = kamar::get();
         // dd($datas);
 
         return view('pages.admin.santri.index', compact('datas', 'request', 'pages', 'kelas'));
@@ -71,9 +70,7 @@ class adminsantricontroller extends Controller
 
         $kelas = DB::table('kelas')->get();
 
-        $kamar = DB::table('kamar')->get();
-
-        return view('pages.admin.santri.create', compact('pages', 'tapel', 'kelas', 'kamar'));
+        return view('pages.admin.santri.create', compact('pages', 'tapel', 'kelas'));
     }
 
     public function store(Request $request)
@@ -133,7 +130,6 @@ class adminsantricontroller extends Controller
                 'alamat'     =>   $request->alamat,
                 'jk'     =>   $request->jk,
                 'kelas_id'     =>   $request->kelas_id,
-                'kamar_id'     =>   $request->kamar_id,
                 'tapel_id'     =>   $request->tapel_id,
                 'siswafoto' =>   $photoku,
                 'moodleuser'     =>   $request->moodleuser,
@@ -159,13 +155,11 @@ class adminsantricontroller extends Controller
 
         $tapel = DB::table('tapel')->get();
         $kelas = DB::table('kelas')->get();
-        $kamar = DB::table('kamar')->get();
 
         $t1 = DB::table('tapel')->where('id', $id->tapel_id)->get();
         $k1 = DB::table('kelas')->where('id', $id->kelas_id)->get();
-        $r1 = DB::table('kamar')->where('id', $id->kamar_id)->get();
 
-        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 'kamar', 't1', 'k1', 'r1', 'u'));
+        return view('pages.admin.santri.edit', compact('pages', 'id', 'tapel', 'kelas', 't1', 'k1', 'u'));
     }
     public function update(siswa $id, Request $request)
     {
@@ -283,7 +277,7 @@ class adminsantricontroller extends Controller
     {
 
         siswa::destroy($id->id);
-        return redirect()->route('siswa')->with('status', 'Data berhasil dihapus!')->with('tipe', 'warning')->with('icon', 'fas fa-feather');
+        return redirect()->route('santri')->with('status', 'Data berhasil dihapus!')->with('tipe', 'warning')->with('icon', 'fas fa-feather');
     }
 
     public function multidel(Request $request)

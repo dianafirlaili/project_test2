@@ -66,7 +66,6 @@
                                 <th>Alamat</th>
                                 <th>Kelas</th>
                                 <th>Email</th>
-                                <th class="text-center">Kamar</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -85,13 +84,13 @@
                                         {{ $data->tempatlahir . '/' . $data->tgllahir }}
                                     </td>
                                     <td>
-                                        <?php
-                                        if ($data->jk == 1) {
-                                            echo 'Laki-laki';
-                                        } else {
-                                            echo 'Perempuan';
-                                        }
-                                        ?>
+                                        @php
+                                            if ($data->jk == 1) {
+                                                echo 'Laki-laki';
+                                            } else {
+                                                echo 'Perempuan';
+                                            }
+                                        @endphp
 
                                     </td>
                                     <td>
@@ -103,10 +102,6 @@
                                     <td>
                                         {{ $data->users != null ? $data->users->email : 'Data tidak ditemukan' }}
                                     </td>
-                                    <td>
-                                        {{ $data->kamar }}
-                                    </td>
-
 
                                     <td class="text-center babeng-min-row">
                                         {{-- <x-button-reset-pass link="/admin/{{ $pages }}/{{$data->id}}/reset" /> --}}

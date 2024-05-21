@@ -81,7 +81,7 @@
                                 <label for="agama">Agama <code></code></label>
                                 <input type="text" name="agama" id="agama"
                                     class="form-control @error('agama') is-invalid @enderror"
-                                    value="{{ old('agama') ? old('agama') : $id->agama }}" readonly>
+                                    value="{{ old('agama') ? old('agama') : $id->agama }}" required>
                                 @error('agama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
@@ -99,73 +99,48 @@
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="jk">Jenis Kelamin <code></code></label>
-                                <input type="text" name="jk" id="jk"
-                                    class="form-control @error('jk') is-invalid @enderror" value="<?php if ($id->jk == 1) {
-                                        echo 'Laki-laki';
-                                    } else {
-                                        echo 'Perempuan';
-                                    } ?>"
-                                    readonly>
-                                @error('alamat')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
-                                @enderror
-                            </div>
-
-
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="tapel_id">Tahun Pelajaran <code></code></label>
-
-                                <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
-                                    required>
-                                    @foreach ($t1 as $t)
-                                        <option value="{{ $id->tapel_id }}">{{ $t->nama }}</option>
-                                    @endforeach
-
-                                    @forelse ($tapel as $d)
-                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
-                                    @empty
-                                        <option value=""> Data belum tersedia</option>
-                                    @endforelse
+                                <select class="form-control  @error('jk') is-invalid @enderror" name="jk"
+                                    aria-valuetext="">
+                                    <option value="1" @if ($id->jk == 1) disabled @endif>Laki-laki
+                                    </option>
+                                    <option value="2" @if ($id->jk == 2) disabled @endif>Perempuan
+                                    </option>
                                 </select>
-                                @error('tapel_id')
+                                @error('jk')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
+                            @php
+                                $combined = $t1->merge($tapel)->unique('id');
+                            @endphp
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Kelas <code></code></label>
+                                <label for="kelas_id">Tahun Pelajaran <code></code></label>
 
-                                <select class="form-control  @error('kelas_id') is-invalid @enderror" name="kelas_id"
+                                <select class="form-control @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
-                                    @foreach ($k1 as $k)
-                                        <option value="{{ $id->kelas_id }}">{{ $k->tingkatan }}
-                                        </option>
+                                    @foreach ($combined as $t)
+                                        <option value="{{ $t->id }}">{{ $t->nama }}</option>
                                     @endforeach
-                                    @forelse ($kelas as $d)
-                                        <option value="{{ $d->id }}">{{ $d->tingkatan }}
-                                        </option>
-                                    @empty
-                                        <option value=""> Data belum tersedia</option>
-                                    @endforelse
                                 </select>
                                 @error('kelas_id')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Kamar <code></code></label>
+                            @php
+                                $combined = $k1->merge($kelas)->unique('id');
+                            @endphp
 
-                                <select class="form-control  @error('kamar_id') is-invalid @enderror" name="kamar_id"
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="kelas_id">Kelas <code></code></label>
+
+                                <select class="form-control @error('kelas_id') is-invalid @enderror" name="kelas_id"
                                     required>
-                                    <option value>---Pilih Kamar---</option>
-                                    @forelse ($kamar as $d)
-                                        <option value="{{ $d->id }}">{{ $d->nama }}
-                                        </option>
-                                    @empty
-                                        <option value=""> Data belum tersedia</option>
-                                    @endforelse
+                                    @foreach ($combined as $k)
+                                        <option value="{{ $k->id }}">{{ $k->tingkatan }}</option>
+                                    @endforeach
                                 </select>
                                 @error('kelas_id')
                                     <div class="invalid-feedback"> {{ $message }}</div>

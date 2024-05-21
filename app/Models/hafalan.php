@@ -8,18 +8,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class hafalan extends Model
 {
-    public $table = "mapel";
+    public $table = "hafalan";
 
     use SoftDeletes;
     use HasFactory;
 
     protected $fillable = [
-        'nama',
-        'tipe',
-        'kkm',
-        'tingkatan',
-        'jurusan',
-        'semester',
-        'tapel_id',
+        'santri_id',
+        'tes',
+        'nilai_hs',
+        'nilai_kb',
     ];
 }

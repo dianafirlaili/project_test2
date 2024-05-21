@@ -58,19 +58,22 @@
                             </div>
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
-
                                 <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
-                                    @forelse ($tapel as $d)
-                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
-                                    @empty
-                                        <option value=""> Data belum tersedia</option>
-                                    @endforelse
+                                    @foreach ($tapel as $d)
+                                        @if ($d->id != $id->tapel_id)
+                                            <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                        @endif
+                                    @endforeach
+                                    @if ($tapel->isEmpty())
+                                        <option value="">Data belum tersedia</option>
+                                    @endif
                                 </select>
                                 @error('tapel_id')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                    <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label for="guru_id">Pilih Walikelas <code></code></label>
 

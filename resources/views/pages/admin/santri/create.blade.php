@@ -100,8 +100,8 @@
 
                                 <select class="form-control  @error('jk') is-invalid @enderror" name="jk" required>
                                     <option value>---Pilih Jenis Kelamin---</option>
-                                    <option value="1">Laki-laki</option>
-                                    <option value="2">Perempuan</option>
+                                    <option>Laki-laki</option>
+                                    <option>Perempuan</option>
                                 </select>
                                 @error('jk')
                                     <div class="invalid-feedback"> {{ $message }}</div>
@@ -135,24 +135,6 @@
                                     <option value>---Pilih Kelas---</option>
                                     @forelse ($kelas as $d)
                                         <option value="{{ $d->id }}">{{ $d->tingkatan }}
-                                        </option>
-                                    @empty
-                                        <option value=""> Data belum tersedia</option>
-                                    @endforelse
-                                </select>
-                                @error('kelas_id')
-                                    <div class="invalid-feedback"> {{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Kamar <code></code></label>
-
-                                <select class="form-control  @error('kamar_id') is-invalid @enderror" name="kamar_id"
-                                    required>
-                                    <option value>---Pilih Kamar---</option>
-                                    @forelse ($kamar as $d)
-                                        <option value="{{ $d->id }}">{{ $d->nama }}
                                         </option>
                                     @empty
                                         <option value=""> Data belum tersedia</option>

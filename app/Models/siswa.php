@@ -22,7 +22,6 @@ class siswa extends Model
         'alamat',
         'jk',
         'kelas_id',
-        'kamar_id',
         'tapel_id',
         'moodleuser',
         'moodlepass',
@@ -33,11 +32,6 @@ class siswa extends Model
     public function kelas()
     {
         return $this->belongsTo('App\Models\kelas');
-    }
-
-    public function kamar()
-    {
-        return $this->belongsTo('App\Models\kamar');
     }
 
     public function tapel()

@@ -25,56 +25,64 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-header">
-                    <h5>Tambah Data Hafalan</h5>
+                    <h5>Tambah Hafalan Santri</h5>
                 </div>
                 <div class="card-body">
 
-                    <form action="{{ route('mapel.store') }}" method="post">
+                    <form action="{{ route('hafalan.store') }}" method="post">
                         @csrf
 
                         <div class="row">
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="nomerinduk">Nis <code>*)</code></label>
+                                <input type="text" name="nomerinduk" id="nomerinduk"
+                                    class="form-control @error('nis') is-invalid @enderror" value="{{ old('nis') }}"
+                                    required>
+                                @error('nomerinduk')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="nama">Nama <code>*)</code></label>
+                                <label for="nama">Nama</label>
                                 <input type="text" name="nama" id="nama"
-                                    class="form-control @error('nama') is-invalid @enderror" value="{{ old('nama') }}"
-                                    required>
+                                    class="form-control @error('nama') is-invalid @enderror" value="" required>
                                 @error('nama')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="form-group col-md-3 col-3 mt-0 ml-5">
-                                <label class="form-label">Pilih Kelas</label>
-                                <div class="selectgroup w-100">
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="7" class="selectgroup-input">
-                                        <span class="selectgroup-button">7</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="8" class="selectgroup-input">
-                                        <span class="selectgroup-button">8</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="radio" name="tingkatan" value="9" class="selectgroup-input">
-                                        <span class="selectgroup-button">9</span>
-                                    </label>
-                                </div>
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="kelas">Kelas </label>
+                                <input type="text" name="kelas_id" id="kelas_id"
+                                    class="form-control @error('kelas_id') is-invalid @enderror" value="" required>
+                                @error('kelas_id')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="nama">Hafalan ke-</label>
-                                <input type="number" max="2" name="hafalan_ke" id="hafalan_ke"
-                                    class="form-control @error('hafalan_ke') is-invalid @enderror"
-                                    value="{{ old('hafalan_ke') }}" required>
-                                @error('hafalan_ke')
+                                <label for="tanggal">Tanggal </label>
+                                <input type="date" name="tanggal" id="tanggal"
+                                    class="form-control @error('kelas_id') is-invalid @enderror"
+                                    value="@php echo date('Y-m-d'); @endphp" required>
+                                @error('tanggal')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="tes">Tes ke-</label>
+                                <input type="number" name="tes" id="tes"
+                                    class="form-control @error('tes') is-invalid @enderror" required>
+                                @error('tes')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
                                 <label>Surah</label>
-                                <select class="form-control form-control-lg" required name="tipe">
+                                <select class="form-control form-control-lg" required name="surah_id">
                                     <option>---Pilih Surah---</option>
                                     @if (old('surah_id'))
                                         <option>{{ old('surah_id') }}</option>
@@ -84,14 +92,64 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
 
-                        <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                            <label for="nama">Catatan</label>
-                            <textarea id="catatan" name="catatan" rows="4" cols="50"></textarea>
-                            @error('hafalan_ke')
-                                <div class="invalid-feedback"> {{ $message }}</div>
-                            @enderror
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="ayat">Jumlah Ayat</label>
+                                <input type="text" name="ayat" id="ayat"
+                                    class="form-control @error('ayat') is-invalid @enderror" required>
+                                @error('ayat')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="nilai_hs">Nilai Hafalan Santri</label>
+                                <input type="number" name="nilai_hs" id="nilai_hs"
+                                    class="form-control @error('nilai_hs') is-invalid @enderror" required>
+                                @error('nilai_hs')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+                            <hr>
+                            <div class="card-header">
+                                <h5>Kemampuan Bacaan</h5>
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="makhroj">Makhroj</label>
+                                <input type="text" name="makhroj" id="makhroj"
+                                    class="form-control @error('makhroj') is-invalid @enderror" required>
+                                @error('makhroj')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="tajwid">Tajwid</label>
+                                <input type="text" name="tajwid" id="tajwid"
+                                    class="form-control @error('tajwid') is-invalid @enderror" required>
+                                @error('tajwid')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="nilai_kb">Nilai Kemampuan Bacaan</label>
+                                <input type="number" name="nilai_kb" id="nilai_kb"
+                                    class="form-control @error('nilai_kb') is-invalid @enderror" required>
+                                @error('nilai_kb')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-5 col-5 mt-0 ml-5">
+                                <label for="nilai_akhir">Total Nilai</label>
+                                <input type="number" name="nilai_akhir" id="nilai_akhir"
+                                    class="form-control @error('nilai_akhir') is-invalid @enderror" required>
+                                @error('nilai_akhir')
+                                    <div class="invalid-feedback"> {{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="card-footer text-right mr-5">
@@ -103,5 +161,23 @@
                 </div>
             </div>
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var inputNIS = document.getElementById("nomerinduk");
+                var inputNama = document.getElementById("nama");
+                var inputKelas = document.getElementById("kelas_id");
+
+                inputNIS.addEventListener("change", function() {
+                    var nisValue = inputNIS.value;
+
+                    // Misalnya, dengan mengirimkan permintaan AJAX ke server
+
+                    // Contoh pengisian nilai input lainnya secara otomatis
+                    inputNama.value = "Nama berdasarkan NIS " + nisValue;
+                    inputKelas.value = "Kelas berdasarkan NIS " + nisValue;
+                });
+            });
+        </script>
+
     </section>
 @endsection

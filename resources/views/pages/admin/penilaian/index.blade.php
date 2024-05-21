@@ -37,12 +37,14 @@
 
                                 <select
                                     class="js-example-basic-single py-0  @error('kelas_id')
-                                is-invalid
-                            @enderror"
+                                    is-invalid
+                                @enderror"
                                     name="kelas_id" style="width: 100%">
+
                                     <option disabled selected value=""> Pilih Kelas</option>
                                     @foreach ($kelas as $t)
-                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }}</option>
+                                        <option value="{{ $t->id }}"> {{ $t->tingkatan }} {{ $t->jurusan }}
+                                            {{ $t->suffix }} </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -70,7 +72,9 @@
                             <tr style="background-color: #F1F1F1">
                                 <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All
                                 </th>
+                                <th>Nis</th>
                                 <th>Nama</th>
+                                <th>Tahun Pelajaran</th>
                                 <th>Detail</th>
                             </tr>
                         </thead>

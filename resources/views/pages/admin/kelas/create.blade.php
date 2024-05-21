@@ -55,10 +55,10 @@
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="tapel_id">Pilih Tahun Pelajaran <code></code></label>
-
+                                <label for="tapel_id">Tahun Pelajaran <code></code></label>
                                 <select class="form-control  @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
+                                    <option>---Pilih Tahun Pelajaran</option>
                                     @forelse ($tapel as $d)
                                         <option value="{{ $d->id }}">{{ $d->nama }}</option>
                                     @empty
@@ -71,10 +71,11 @@
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="guru_id">Pilih Walikelas <code></code></label>
+                                <label for="guru_id">Walikelas <code></code></label>
 
                                 <select class="form-control  @error('guru_id') is-invalid @enderror" name="guru_id"
                                     required>
+                                    <option>---Pilih Walikelas</option>
                                     @forelse ($walikelas as $d)
                                         <option value="{{ $d->id }}">{{ $d->nomerinduk }} - {{ $d->nama }}
                                         </option>

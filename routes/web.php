@@ -23,6 +23,7 @@ use App\Http\Controllers\adminsantricontroller;
 use App\Http\Controllers\adminsynccontroller;
 use App\Http\Controllers\admintapelcontroller;
 use App\Http\Controllers\adminuserscontroller;
+use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\adminkkocontroller;
 use App\Http\Controllers\adminpembayarancontroller;
@@ -133,6 +134,9 @@ Route::group(['middleware' => ['auth:web', 'verified']], function () {
     Route::get('/admin/datahafalan/create', [adminhafalancontroller::class, 'create'])->name('hafalan.create');
     Route::post('/admin/datahafalan', [adminhafalancontroller::class, 'store'])->name('hafalan.store');
     Route::delete('/admin/datahafalan/multidel', [adminhafalancontroller::class, 'multidel'])->name('hafalan.multidel');
+    //Route::get('/admin/datahafalan/{id}', [adminhafalancontroller::class, 'hafalan.show']);
+
+
 
 
     //mapel

@@ -6,6 +6,7 @@ use App\Helpers\Fungsi;
 use App\Models\hafalan;
 use App\Models\kelas;
 use App\Models\surah;
+use App\Models\siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -54,49 +55,42 @@ class adminhafalancontroller extends Controller
 
     public function store(Request $request)
     {
-        $cek = DB::table('hafalan')
+        // Lakukan pengecekan apakah data dengan nama tersebut sudah ada dalam database
+        $existingSantri = DB::table('santri')
             ->where('nama', $request->nama)
-            ->count();
-        if ($cek > 0) {
-            $request->validate(
-                [
-                    'nama' => 'required|unique:surah,nama',
-                ],
-                [
-                    'nama.unique' => 'nama sudah digunakan',
-                ]
-            );
+            ->first();
+
+        // Jika data dengan nama tersebut sudah ada, isi input santri_id dengan ID yang sesuai
+        if ($existingSantri) {
+            $request->merge(['santri_id' => $existingSantri->id]);
         }
 
-        $request->validate(
-            [
-                'nama' => 'required',
-                'kkm' => 'required|min:1|max:100',
-                'tipe' => 'required',
+        // Validasi data yang diterima dari formulir
+        $request->validate([
+            'santri_id' => 'required',
+            'nilai_hs' => 'required|min:1|max:100',
+            'nilai_kb' => 'required',
+            // Sesuaikan aturan validasi lainnya sesuai kebutuhan Anda
+        ]);
 
-            ],
-            [
-                'nama.nama' => 'Nama harus diisi',
-            ]
-        );
+        // Simpan data ke dalam database
+        DB::table('hafalan')->insert([
+            'santri_id' => $request->santri_id ?? null, // Gunakan nilai yang diisi otomatis atau null jika tidak ada
+            'tanggal' => $request->tanggal,
+            'tes' => $request->tes,
+            'surah_id' => $request->surah_id,
+            'ayat' => $request->ayat,
+            'makhroj' => $request->makhroj,
+            'tajwid' => $request->tajwid,
+            'nilai_hs' => $request->nilai_hs,
+            'nilai_kb' => $request->nilai_kb,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-        DB::table('hafalan')->insert(
-            array(
-                'nama'     =>   $request->nama,
-                'tipe'     =>   $request->tipe,
-                'tingkatan'     =>   $request->tingkatan,
-                'jurusan'     =>   $request->jurusan,
-                'kkm'     =>   $request->kkm,
-                'semester'     =>   $request->semester,
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
-            )
-        );
-
-
-
-        //return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
+        // Redirect atau berikan respon sesuai kebutuhan aplikasi Anda
     }
+
 
     public function edit(hafalan $id)
     {
