@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Fungsi;
-use App\Models\hafalan;
+use App\Models\hafalanadm;
 use App\Models\kelas;
 use App\Models\surah;
-use App\Models\siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,7 +26,10 @@ class adminhafalancontroller extends Controller
     {
         #WAJIB
         $pages = 'hafalan';
-        $datas = hafalan::paginate(Fungsi::paginationjml());
+        //$datas = hafalanadm::paginate(Fungsi::paginationjml());
+        $datas = hafalanadm::with('kelas')
+            ->orderBy('tingkatan', 'asc')
+            ->paginate(Fungsi::paginationjml());
         $kelas = kelas::get();
 
         return view('pages.admin.hafalan.index', compact('datas', 'request', 'pages', 'kelas'));
@@ -38,8 +40,8 @@ class adminhafalancontroller extends Controller
         $cari = $request->cari;
         #WAJIB
         $pages = 'hafalan';
-        $datas = DB::table('hafalan')
-            ->where('nama', 'like', "%" . $cari . "%")
+        $datas = DB::table('hafalanadm')
+            ->where('kelas_id', 'like', "%" . $cari . "%")
             ->paginate(Fungsi::paginationjml());
 
         return view('pages.admin.hafalan.index', compact('datas', 'request', 'pages'));
@@ -48,65 +50,59 @@ class adminhafalancontroller extends Controller
     {
         $pages = 'hafalan';
         $surah = Surah::all();
-        $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
+        $kelas = kelas::orderBy('tingkatan')->get();
+        //$tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
 
-        return view('pages.admin.hafalan.create', compact('pages', 'tipepelajaran', 'surah'));
+        return view('pages.admin.hafalan.create', compact('pages', 'surah', 'kelas'));
     }
 
     public function store(Request $request)
     {
         // Lakukan pengecekan apakah data dengan nama tersebut sudah ada dalam database
-        $existingSantri = DB::table('santri')
-            ->where('nama', $request->nama)
+        $existingSurah = DB::table('hafalanadm')
+            ->where('kelas_id', $request->kelas_id)
             ->first();
 
         // Jika data dengan nama tersebut sudah ada, isi input santri_id dengan ID yang sesuai
-        if ($existingSantri) {
-            $request->merge(['santri_id' => $existingSantri->id]);
+        if ($existingSurah) {
+            $request->merge(['id' => $existingSurah->id]);
         }
 
         // Validasi data yang diterima dari formulir
         $request->validate([
-            'santri_id' => 'required',
-            'nilai_hs' => 'required|min:1|max:100',
-            'nilai_kb' => 'required',
+            'surah' => 'required',
+            'kelas_id' => 'required',
             // Sesuaikan aturan validasi lainnya sesuai kebutuhan Anda
         ]);
 
         // Simpan data ke dalam database
-        DB::table('hafalan')->insert([
-            'santri_id' => $request->santri_id ?? null, // Gunakan nilai yang diisi otomatis atau null jika tidak ada
-            'tanggal' => $request->tanggal,
-            'tes' => $request->tes,
-            'surah_id' => $request->surah_id,
-            'ayat' => $request->ayat,
-            'makhroj' => $request->makhroj,
-            'tajwid' => $request->tajwid,
-            'nilai_hs' => $request->nilai_hs,
-            'nilai_kb' => $request->nilai_kb,
+        DB::table('hafalanadm')->insert([
+            'surah' => $request->surah, // Gunakan nilai yang diisi otomatis atau null jika tidak ada
+            'kelas_id' => $request->kelas_id,
             'created_at' => now(),
             'updated_at' => now()
         ]);
 
         // Redirect atau berikan respon sesuai kebutuhan aplikasi Anda
+        return redirect()->route('hafalan')->with('status', 'Data berhasil tambahkan!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
 
 
-    public function edit(hafalan $id)
+    public function edit(hafalanadm $id)
     {
         $pages = 'hafalan';
 
-        $tipepelajaran = DB::table('kategori')->where('prefix', 'tipepelajaran')->get();
-        return view('pages.admin.hafalan.edit', compact('pages', 'id', 'tipepelajaran'));
+        $surah = DB::table('hafalanadm')->where('kelas_id', 'surah')->get();
+        return view('pages.admin.hafalan.edit', compact('pages', 'id', 'surah'));
     }
-    public function update(hafalan $id, Request $request)
+    public function update(hafalanadm $id, Request $request)
     {
 
-        if ($request->nama !== $id->nama) {
+        if ($request->kelas_id !== $id->kelas_id) {
 
             $request->validate(
                 [
-                    'nama' => "required",
+                    'kelas_id' => "required",
                 ],
                 []
             );
@@ -114,32 +110,28 @@ class adminhafalancontroller extends Controller
 
         $request->validate(
             [
-                'nama' => 'required',
+                'kelas_id' => 'required',
             ],
             [
-                'nama.required' => 'nama harus diisi',
+                'kelas_id.required' => 'kelas harus diisi',
             ]
         );
 
 
-        hafalan::where('id', $id->id)
+        hafalanadm::where('id', $id->id)
             ->update([
-                'nama'     =>   $request->nama,
-                'tipe'     =>   $request->tipe,
-                'tingkatan'     =>   $request->tingkatan,
-                'jurusan'     =>   $request->jurusan,
-                'kkm'     =>   $request->kkm,
-                'semester'     =>   $request->semester,
+                'kelas_id'     =>   $request->kelas_id,
+                'surah'     =>   $request->surah,
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
 
 
         // return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
-    public function destroy(hafalan $id)
+    public function destroy(hafalanadm $id)
     {
 
-        hafalan::destroy($id->id);
+        hafalanadm::destroy($id->id);
         return redirect()->route('hafalan')->with('status', 'Data berhasil dihapus!')->with('tipe', 'warning')->with('icon', 'fas fa-feather');
     }
 
@@ -147,12 +139,12 @@ class adminhafalancontroller extends Controller
     {
 
         $ids = $request->ids;
-        hafalan::whereIn('id', $ids)->delete();
+        hafalanadm::whereIn('id', $ids)->delete();
 
         // load ulang
         #WAJIB
         $pages = 'hafalan';
-        $datas = hafalan::paginate(Fungsi::paginationjml());
+        $datas = hafalanadm::paginate(Fungsi::paginationjml());
 
         return view('pages.admin.hafalan.index', compact('datas', 'request', 'pages'));
     }

@@ -64,63 +64,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-warning">
-                            <i class="fab fa-monero"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Jumlah Mata Pelajaran</h4>
-                            </div>
-                            <div class="card-body">
-                                @php
-                                    $jmlmapel = \App\Models\dataajar::where('guru_id', $guru_id)->count();
-                                    $jmlmapelperkelas = DB::table('dataajar')->whereNull('deleted_at')->count();
-                                @endphp
-                                {{ $jmlmapel }} Mapel
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                    <div class="card card-statistic-1">
-                        <div class="card-icon bg-success">
-                            <i class="fas fa-microchip"></i>
-                        </div>
-                        <div class="card-wrap">
-                            <div class="card-header">
-                                <h4>Bank Soal</h4>
-                            </div>
-                            <div class="card-body">
-                                @php
-
-                                    $dataajar = \App\Models\dataajar::with('banksoal')
-                                        ->where('guru_id', $guru_id)
-                                        ->get();
-                                    $jmlsoal = 0;
-                                    foreach ($dataajar as $dk) {
-                                        $jmlsoal += $dk->banksoal != null ? $dk->banksoal->count() : 0;
-                                        // dd($dk->siswa->count());
-                                    }
-                                    $datakd = \App\Models\dataajar::with('kompetensidasar')
-                                        ->where('guru_id', $guru_id)
-                                        ->get();
-                                    $jmlkompetensidasar = 0;
-                                    foreach ($datakd as $dk) {
-                                        $jmlkompetensidasar +=
-                                            $dk->kompetensidasar != null ? $dk->kompetensidasar->count() : 0;
-                                        // dd($dk->siswa->count());
-                                    }
-                                @endphp
-                                {{ $jmlsoal }} Soal
-                                <div class="text-muted text-small"><span class="text-primary"><i
-                                            class="fas fa-caret-up"></i></span> {{ $jmlkompetensidasar }} Silabus</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
 

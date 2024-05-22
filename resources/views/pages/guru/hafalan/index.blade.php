@@ -25,15 +25,14 @@
         <div class="section-body">
             <div class="card">
                 <div class="card-body">
-
                     <div class="d-flex bd-highlight mb-3 align-items-center">
 
                         <div class="p-2 bd-highlight">
-                            <form action="{{ route('hafalan.cari') }}" method="GET">
+
+                            <form action="{{ route('guru.hafalan.cari') }}" method="GET">
                                 <input type="text" class="babeng babeng-select  ml-0" name="cari">
                         </div>
                         <div class="p-2 bd-highlight">
-
                             <span>
                                 <input class="btn btn-info ml-1 mt-2 mt-sm-0" type="submit" id="babeng-submit"
                                     value="Cari">
@@ -41,14 +40,13 @@
                         </div>
 
                         <div class="ml-auto p-2 bd-highlight">
-                            <x-button-create link="{{ route('hafalan.create') }}"></x-button-create>
-
+                            <x-button-create link="{{ route('guru.hafalan.create') }}"></x-button-create>
                             </form>
 
                         </div>
                     </div>
 
-                    <x-jsmultidel link="{{ route('hafalan.multidel') }}" />
+                    <x-jsmultidel link="{{ route('guru.hafalan.multidel') }}" />
 
                     @if ($datas->count() > 0)
                         <x-jsdatatable />
@@ -61,8 +59,8 @@
                                 </th>
                                 <th>Nama</th>
                                 <th>Kelas</th>
-                                <th>Hafalan</th>
-                                <th>Surah</th>
+                                <th>Tes Ke-</th>
+                                <th>Nilai</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -80,23 +78,21 @@
                                     <td>
                                         {{ $data->kkm }}
                                     </td>
-
                                     <td>
                                         {{ $data->tipe }}
                                     </td>
-
                                     <td>
                                         {{ $data->tingkatan }}
                                     </td>
                                     <td class="text-center babeng-min-row">
                                         {{-- <x-button-reset-pass link="/admin/{{ $pages }}/{{$data->id}}/reset" /> --}}
-                                        <x-button-edit link="/admin/{{ $pages }}/{{ $data->id }}" />
-                                        <x-button-delete link="/admin/{{ $pages }}/{{ $data->id }}" />
+                                        <x-button-edit link="/guru/{{ $pages }}/{{ $data->id }}" />
+                                        <x-button-delete link="/guru/{{ $pages }}/{{ $data->id }}" />
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">Data tidak ditemukan</td>
+                                    <td colspan="6" class="text-center">Data tidak ditemukan</td>
                                 </tr>
                             @endforelse
                         </tbody>

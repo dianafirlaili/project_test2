@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('title')
-    Hafalan Santri
+    Kelola Surah Hafalan
 @endsection
 
 @push('before-script')
@@ -57,10 +57,8 @@
                             <tr style="background-color: #F1F1F1">
                                 <th class="text-center py-2 babeng-min-row"> <input type="checkbox" id="chkCheckAll"> All
                                 </th>
-                                <th>Nama</th>
                                 <th>Kelas</th>
-                                <th>Tes Ke-</th>
-                                <th>Nilai</th>
+                                <th>Surah</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -73,16 +71,10 @@
                                         {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}
                                     </td>
                                     <td>
-                                        {{ Str::limit($data->nama, 25, ' ...') }}
+                                        {{ $data->kelas }}
                                     </td>
                                     <td>
-                                        {{ $data->kkm }}
-                                    </td>
-                                    <td>
-                                        {{ $data->tipe }}
-                                    </td>
-                                    <td>
-                                        {{ $data->tingkatan }}
+                                        {{ $data->surah }}
                                     </td>
                                     <td class="text-center babeng-min-row">
                                         {{-- <x-button-reset-pass link="/admin/{{ $pages }}/{{$data->id}}/reset" /> --}}

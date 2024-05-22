@@ -27,6 +27,7 @@ class adminkelascontroller extends Controller
         #WAJIB
         $pages = 'kelas';
         $datas = kelas::with('guru')->with('tapel')
+            ->orderBy('tingkatan', 'asc')
             ->paginate(Fungsi::paginationjml());
         // dd($datas);
         $guru = guru::get();

@@ -202,6 +202,8 @@ Route::group(['middleware' => ['auth:web', 'verified']], function () {
     Route::get('/guru/datahafalan/create', [guruhafalancontroller::class, 'create'])->name('guru.hafalan.create');
     Route::post('/guru/datahafalan', [guruhafalancontroller::class, 'store'])->name('guru.hafalan.store');
     Route::delete('/guru/datahafalan/multidel', [guruhafalancontroller::class, 'multidel'])->name('guru.hafalan.multidel');
+    Route::get('/santri/{nis}', 'santricontroller@getDataByNIS');
+
 
 
     //penilaian

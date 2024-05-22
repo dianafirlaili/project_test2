@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <form action="{{ route('santri.cari') }}" method="GET" class="d-inline">
+                    <form action="{{ route('guru.santri.cari') }}" method="GET" class="d-inline">
                         <div class="d-flex bd-highlight mb-0 align-items-center">
 
                             <div class="p-2 bd-highlight">
@@ -70,7 +70,6 @@
                                 <th>Alamat</th>
                                 <th>Kelas</th>
                                 <th>Email</th>
-                                <th class="text-center">Photo</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,23 +100,10 @@
                                         {{ $data->alamat }}
                                     </td>
                                     <td>
-                                        {{ $data->tingkatan }}
+                                        {{ $data->kelas->tingkatan }}
                                     </td>
                                     <td>
                                         {{ $data->users != null ? $data->users->email : 'Data tidak ditemukan' }}
-                                    </td>
-                                    <td class="text-center">
-                                        @php
-                                            $siswa = asset('/storage/') . '/' . $data->siswafoto;
-                                            $randomimg =
-                                                'https://ui-avatars.com/api/?name=' .
-                                                $data->nama .
-                                                '&color=7F9CF5&background=EBF4FF';
-                                        @endphp
-                                        <img alt="image"
-                                            src="{{ $data->siswafoto != null ? $siswa : 'https://ui-avatars.com/api/?name=Admin&color=7F9CF5&background=EBF4FF' }}"
-                                            class="img-thumbnail" data-toggle="tooltip" title="{{ $data->nama }}"
-                                            width="60px" height="60px" style="object-fit:cover;">
                                     </td>
                                 </tr>
                             @empty
