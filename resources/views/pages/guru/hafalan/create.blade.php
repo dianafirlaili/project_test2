@@ -87,10 +87,17 @@
                                     @if (old('surah_id'))
                                         <option>{{ old('surah_id') }}</option>
                                     @endif
-                                    @foreach ($surah as $t)
-                                        <option>{{ $t->nama }}</option>
+                                    @foreach ($surah as $data)
+                                        @php
+                                            $surahParts = explode(',', $data->surah);
+                                        @endphp
+                                        {{-- Membuat opsi select untuk setiap bagian surah --}}
+                                        @foreach ($surahParts as $part)
+                                            <option value="{{ $part }}">{{ $part }}</option>
+                                        @endforeach
                                     @endforeach
                                 </select>
+
                             </div>
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
@@ -169,7 +176,7 @@
 
                     // Kirim permintaan AJAX ke server
                     $.ajax({
-                        url: "/santri/" + nisValue,
+                        url: "/santricontroller/" + nisValue,
                         method: "GET",
                         success: function(response) {
                             // Isi nilai input lainnya secara otomatis dengan data yang diterima dari server

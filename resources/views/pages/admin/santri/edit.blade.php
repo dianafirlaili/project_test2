@@ -116,7 +116,7 @@
                             @endphp
 
                             <div class="form-group col-md-5 col-5 mt-0 ml-5">
-                                <label for="kelas_id">Tahun Pelajaran <code></code></label>
+                                <label for="tapel_id">Tahun Pelajaran <code></code></label>
 
                                 <select class="form-control @error('tapel_id') is-invalid @enderror" name="tapel_id"
                                     required>
@@ -124,7 +124,7 @@
                                         <option value="{{ $t->id }}">{{ $t->nama }}</option>
                                     @endforeach
                                 </select>
-                                @error('kelas_id')
+                                @error('tapel_id')
                                     <div class="invalid-feedback"> {{ $message }}</div>
                                 @enderror
                             </div>

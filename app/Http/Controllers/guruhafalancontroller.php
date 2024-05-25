@@ -45,7 +45,13 @@ class guruhafalancontroller extends Controller
     public function create()
     {
         $pages = 'hafalan';
-        $surah = hafalanadm::all();
+        if (request()->has('kelas_id')) {
+            $kelasId = request()->input('kelas_id');
+        } else {
+            // Nilai default jika kelas_id tidak ditemukan dalam permintaan
+            $kelasId = 1; // atau nilai lainnya sesuai dengan kebutuhan
+        }
+        $surah = hafalanadm::with('kelas')->where('kelas_id', $kelasId)->get();
         $santri = siswa::all();
 
         return view('pages.guru.hafalan.create', compact('pages', 'surah', 'santri'));

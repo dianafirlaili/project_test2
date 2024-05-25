@@ -52,6 +52,10 @@
                         <x-jsdatatable />
                     @endif
 
+                    @if ($datas->count() > 0)
+                        <x-jsdatatable />
+                    @endif
+
                     <table id="example" class="table table-striped table-bordered mt-1 table-sm" style="width:100%">
                         <thead>
                             <tr style="background-color: #F1F1F1">
@@ -66,18 +70,18 @@
                             @forelse ($datas as $data)
                                 <tr id="sid{{ $data->id }}">
                                     <td class="text-center">
-                                        <input type="checkbox" name="ids" class="checkBoxClass "
+                                        <input type="checkbox" name="ids" class="checkBoxClass"
                                             value="{{ $data->id }}">
                                         {{ $loop->index + 1 + ($datas->currentPage() - 1) * $datas->perPage() }}
                                     </td>
                                     <td>
-                                        {{ $data->kelas }}
+                                        {{ $data->kelas->tingkatan }}
+                                        <!-- Pastikan ini sesuai dengan nama field di model Kelas -->
                                     </td>
                                     <td>
                                         {{ $data->surah }}
                                     </td>
                                     <td class="text-center babeng-min-row">
-                                        {{-- <x-button-reset-pass link="/admin/{{ $pages }}/{{$data->id}}/reset" /> --}}
                                         <x-button-edit link="/admin/{{ $pages }}/{{ $data->id }}" />
                                         <x-button-delete link="/admin/{{ $pages }}/{{ $data->id }}" />
                                     </td>

@@ -24,11 +24,9 @@ class adminhafalancontroller extends Controller
     }
     public function index(Request $request)
     {
-        #WAJIB
         $pages = 'hafalan';
-        //$datas = hafalanadm::paginate(Fungsi::paginationjml());
         $datas = hafalanadm::with('kelas')
-            ->orderBy('tingkatan', 'asc')
+            ->orderBy('kelas_id', 'asc')
             ->paginate(Fungsi::paginationjml());
         $kelas = kelas::get();
 
@@ -91,9 +89,11 @@ class adminhafalancontroller extends Controller
     public function edit(hafalanadm $id)
     {
         $pages = 'hafalan';
+        $kelas = DB::table('kelas')->get();
+        $k1 = DB::table('kelas')->where('id', $id->kelas_id)->get();
 
-        $surah = DB::table('hafalanadm')->where('kelas_id', 'surah')->get();
-        return view('pages.admin.hafalan.edit', compact('pages', 'id', 'surah'));
+        //$surah = DB::table('hafalanadm')->where('kelas_id', 'surah')->get();
+        return view('pages.admin.hafalan.edit', compact('pages', 'id', 'kelas', 'k1'));
     }
     public function update(hafalanadm $id, Request $request)
     {
@@ -125,7 +125,7 @@ class adminhafalancontroller extends Controller
                 'updated_at' => date("Y-m-d H:i:s")
             ]);
 
-
+        return redirect()->route('hafalan')->with('status', 'Data berhasil tambahkan!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
         // return redirect()->route('sync.mapeltodataajar')->with('status', 'Data berhasil diubah!')->with('tipe', 'success')->with('icon', 'fas fa-feather');
     }
     public function destroy(hafalanadm $id)
